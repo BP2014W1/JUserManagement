@@ -2,6 +2,7 @@ package de.uni_potsdam.hpi.bpt.bp2014.rest;
 
 import com.google.gson.Gson;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,8 +17,8 @@ public class JsonUtil {
 
     /**
      *
-     * @param content
-     * @return
+     * @param content contains an ArrayList of HashMaps.
+     * @return a json object converted as String
      */
     // {"myArrayList":[{"map":{"id":1,"rolename":"marketing","description":"die, die viel reden","admin_id":1}}]}
     // {"myArrayList":[{"map":{"id":1,"username":"max","role_id":1,"description":""}},{"map":{"id":2,"username":"robert","role_id":1,"description":""}}]}
@@ -26,6 +27,21 @@ public class JsonUtil {
         Gson gson = new Gson();
         JSONArray json = new JSONArray(content);
         return gson.toJson(json);
+    }
+
+    /**
+     *
+     * @param content contains an ArrayList of HashMaps.
+     * @return a json object converted as String
+     */
+    public static String JsonWrapFancyArrayListHashMap(ArrayList<HashMap<String, Object>> content){
+        JSONArray result_array = new JSONArray();
+        for(HashMap<String,Object> content_entry:content) {
+            JSONObject result = new JSONObject(content_entry);
+            result_array.put(result);
+        }
+        String strI = result_array.toString();
+        return strI;
     }
 
     /**
