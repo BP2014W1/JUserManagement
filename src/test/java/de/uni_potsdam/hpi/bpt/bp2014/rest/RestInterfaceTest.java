@@ -1,16 +1,13 @@
-package de.uni_potsdam.hpi.bpt.bp2014.jcore.rest;
+package de.uni_potsdam.hpi.bpt.bp2014.rest;
 
 import com.ibatis.common.jdbc.ScriptRunner;
-import de.uni_potsdam.hpi.bpt.bp2014.AbstractTest;
 import de.uni_potsdam.hpi.bpt.bp2014.database.Connection;
 import net.javacrumbs.jsonunit.core.Option;
 import org.glassfish.jersey.server.ResourceConfig;
-import org.json.JSONObject;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
@@ -23,7 +20,7 @@ import static net.javacrumbs.jsonunit.JsonMatchers.jsonEquals;
 import static org.junit.Assert.*;
 
 /**
- * This Class extends the {@link de.uni_potsdam.hpi.bpt.bp2014.AbstractTest}
+ * This Class extends the {@link AbstractTest}
  * to test the RestInterface of the JEngine core.
  * In order to do so it uses the functionality of the
  * {@link org.glassfish.jersey.test.JerseyTest}
@@ -74,7 +71,7 @@ public class RestInterfaceTest extends AbstractTest {
     @Test
     public void testGetAllUserStatusCheck() {
         Response response = base.path("user").request().get();
-        assertEquals("The Response code of get Scenario was not 200",
+        assertEquals("The Response code of get GetAllUser was not 200",
                 200, response.getStatus());
         assertEquals("Get user returns a Response with the wrong media Type",
                 MediaType.APPLICATION_JSON, response.getMediaType().toString());
@@ -87,7 +84,7 @@ public class RestInterfaceTest extends AbstractTest {
     public void testGetAllUserContentCheck() {
         Response response = base.path("user").request().get();
         assertThat("Get all user did not contain the expected information",
-                "{\"myArrayList\":[{\"map\":{\"id\":1,\"username\":\"max\",\"role_id\":1,\"description\":\"Max der Grosse\"}},{\"map\":{\"id\":2,\"username\":\"robert\",\"role_id\":1,\"description\":\"Mitarbeiter des Monats, admin der rolle 1\"}},{\"map\":{\"id\":3,\"username\":\"Lisa\",\"role_id\":1,\"description\":\"\"}},{\"map\":{\"id\":4,\"username\":\"Steffi\",\"role_id\":10,\"description\":\"Manager\"}},{\"map\":{\"id\":5,\"username\":\"Rolf\",\"role_id\":10,\"description\":\"Top Manager\"}}]}\n",
+                "[{\"id\":1,\"username\":\"max\",\"role_id\":1,\"description\":\"Max der Grosse\"},{\"id\":2,\"username\":\"robert\",\"role_id\":1,\"description\":\"Mitarbeiter des Monats, admin der rolle 1\"},{\"id\":3,\"username\":\"Lisa\",\"role_id\":1,\"description\":\"\"},{\"id\":4,\"username\":\"Steffi\",\"role_id\":10,\"description\":\"Manager\"},{\"id\":5,\"username\":\"Rolf\",\"role_id\":10,\"description\":\"Top Manager\"}]",
                 jsonEquals(response.readEntity(String.class)).when(Option.IGNORING_ARRAY_ORDER));
     }
 
@@ -97,7 +94,7 @@ public class RestInterfaceTest extends AbstractTest {
     @Test
     public void testGetAllRoleStatusCheck() {
         Response response = base.path("role").request().get();
-        assertEquals("The Response code of get Scenario was not 200",
+        assertEquals("The Response code of GetAllRole was not 200",
                 200, response.getStatus());
         assertEquals("Get user returns a Response with the wrong media Type",
                 MediaType.APPLICATION_JSON, response.getMediaType().toString());
@@ -110,7 +107,7 @@ public class RestInterfaceTest extends AbstractTest {
     public void testGetAllRoleContentCheck() {
         Response response = base.path("role").request().get();
         assertThat("Get all roles did not contain the expected information",
-                "{\"myArrayList\":[{\"map\":{\"id\":1,\"rolename\":\"service_mitarbeiter\",\"description\":\"Die Bearbeiten Antraege und rufen Leute an\",\"admin_id\":2}},{\"map\":{\"id\":10,\"rolename\":\"manager\",\"description\":\"Die koordinieren und managen die Aufgaben\",\"admin_id\":0}}]}\n",
+                "[{\"id\":1,\"rolename\":\"service_mitarbeiter\",\"description\":\"Die Bearbeiten Antraege und rufen Leute an\",\"admin_id\":2},{\"id\":10,\"rolename\":\"manager\",\"description\":\"Die koordinieren und managen die Aufgaben\",\"admin_id\":0}]",
                 jsonEquals(response.readEntity(String.class)).when(Option.IGNORING_ARRAY_ORDER));
     }
 

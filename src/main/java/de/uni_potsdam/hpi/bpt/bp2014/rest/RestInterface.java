@@ -33,7 +33,7 @@ public class RestInterface {
     @Path("user")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllUser(@QueryParam("filter") String filterString) {
-            String jsonRepresentation = JsonUtil.JsonWrapperArrayListHashMap(Controller.RetrieveAllItems("user"));
+            String jsonRepresentation = JsonUtil.JsonWrapFancyArrayListHashMap(Controller.RetrieveAllItems("user"));
             return Response.ok(jsonRepresentation, MediaType.APPLICATION_JSON).build();
     }
 
@@ -51,7 +51,7 @@ public class RestInterface {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getSpecificUser(@QueryParam("filter") String filterString,
                                     @PathParam("userID") int userID) {
-        String jsonRepresentation = JsonUtil.JsonWrapperArrayListHashMap(Controller.RetrieveItem("user", userID));
+        String jsonRepresentation = JsonUtil.JsonWrapFancyArrayListHashMap(Controller.RetrieveItem("user", userID));
         return Response.ok(jsonRepresentation, MediaType.APPLICATION_JSON).build();
     }
 
@@ -66,7 +66,7 @@ public class RestInterface {
     @Path("role")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllRoles(@QueryParam("filter") String filterString) {
-        String jsonRepresentation = JsonUtil.JsonWrapperArrayListHashMap(Controller.RetrieveAllItems("role"));
+        String jsonRepresentation = JsonUtil.JsonWrapFancyArrayListHashMap(Controller.RetrieveAllItems("role"));
         return Response.ok(jsonRepresentation, MediaType.APPLICATION_JSON).build();
     }
 
@@ -83,7 +83,7 @@ public class RestInterface {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getSpecificRole(@QueryParam("filter") String filterString,
                                     @PathParam("roleID") int roleID) {
-        String jsonRepresentation = JsonUtil.JsonWrapperArrayListHashMap(Controller.RetrieveItem("role", roleID));
+        String jsonRepresentation = JsonUtil.JsonWrapFancyArrayListHashMap(Controller.RetrieveItem("role", roleID));
         return Response.ok(jsonRepresentation, MediaType.APPLICATION_JSON).build();
     }
 
